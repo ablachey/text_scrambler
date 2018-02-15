@@ -64,7 +64,7 @@
             if(v.length > 2) {
               var added = Array();
               var letters = v.split('');
-              newWord = newWord + letters[0]; //= letters[0];
+              newWord = newWord + letters[0];
               
               while(letters.length - 1 != newWord.length) {
                 var key = randNum(1, letters.length - 2);
@@ -92,8 +92,8 @@
 
       $('#copy').click(function(e){
         e.preventDefault();
-        var text = $('#copier').val();
-        if(text != '') {
+        var text = $('#output').val();
+        if(text != '' && result != '') {
           document.execCommand("Copy");
 
           $('#msg').html('Text Copied to Clipboard');
