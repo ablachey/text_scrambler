@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="description" content="Text scrambler, lets you keep the first and last letter of any string, and scamble the letters in between.">
+
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+
+  <title>Vai Project - Text Scrambler</title>
+</head>
+<body>
+  <div class="container-fluid">
+    <header>
+      <hr>
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>Txet Srbaclemr - 0.0.1</h2>
+        </div>
+      </div>
+      <hr>
+    </header>
+    
+    <div class="row">
+      <div class="col-lg-12">
+        <form class="form" id="conv-form">
+          <div class="form-group">
+            <label>Text Input</label>
+            <input class="form-control" placeholder="Input" name="input" id="input">
+          </div>
+          <div class="form-group">
+            <label>Text Output</label>
+            <textarea class="form-control" id="output" rows="5" disabled></textarea>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary">Convert</button>
+            <button class="btn btn-warning" id="copy">Copy</button>
+            <span class="badge badge-success" id="msg"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var result = '';
+      $('#conv-form').submit(function(e){
+        e.preventDefault();
+        result = '';
+        var inp = $('#input').val();
+        var words = inp.split(' ');
+
+        if(inp.length > 0) {
+          $.each(words, function(k, v){
+            var newWord = '';
+            if(v.length > 2) {
+              var added = Array();
+              var letters = v.split('');
+              newWord = newWord + letters[0]; //= letters[0];
+              
+              while(letters.length - 1 != newWord.length) {
+                var key = randNum(1, letters.length - 2);
+                var exist = $.inArray(key, added);
+
+                if(exist < 0) {
+                  newWord = newWord + letters[key];
+                  added.push(key);
+                }
+              }
+              
+              newWord = newWord + letters[letters.length - 1];
+            }
+            else {
+              newWord = v;
+            }
+            
+            result = result + ' ' + newWord;
+          });
+
+          result = result.trim();
+          $('#output').val(result);
+        }
+      });
+
+      $('#copy').click(function(e){
+        e.preventDefault();
+        var text = $('#copier').val();
+        if(text != '') {
+          document.execCommand("Copy");
+
+          $('#msg').html('Text Copied to Clipboard');
+
+          setTimeout(function(){ 
+            $('#msg').html('');
+          }, 3000);
+        }
+      });
+
+      $(document).on("copy", function(e){
+        e.stopPropagation();
+        e.preventDefault();
+                      
+        var cd = e.originalEvent.clipboardData;
+        cd.setData("text/plain", result);
+      });
+    });
+
+    function randNum(min,max) {
+      return Math.floor(Math.random()*(max-min+1)+min);
+    }
+  </script>
+</body>
+</html>

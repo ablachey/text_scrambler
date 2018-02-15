@@ -1,0 +1,9 @@
+html, body {
+  background-color: #22252a;
+  color: #8a8d93;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.notification {
+  height: 30px !important;
+}
