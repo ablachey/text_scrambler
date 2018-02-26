@@ -1,7 +1,7 @@
 
 # Text Scrambler
 
-A JavaScript text scrambler / manipulation library.
+A JavaScript text scrambling/manipulation class.
 
 ## Prerequisites
 
@@ -11,6 +11,11 @@ A JavaScript text scrambler / manipulation library.
 ```
 Include the scrambler.js file
 ```
+
+## Demo
+
+[scrambler.abdullatheef.me](http://scrambler.abdullatheef.me)
+
 ## License
 Copyright 2018 Abdul Latheef
 
