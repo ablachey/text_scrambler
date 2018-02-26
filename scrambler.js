@@ -72,7 +72,7 @@ class Scrambler {
           var alreadyAdded = Array();
 
           $.each(letters, function(k, v){
-            var isVowel = $.inArray(v, vowels);
+            var isVowel = $.inArray(v.toLowerCase(), vowels);
 
             if(isVowel < 0) {
               lettersToChange.push(k);
@@ -82,7 +82,7 @@ class Scrambler {
           lettersToChange = shuffleArray(lettersToChange);
 
           $.each(letters, function(k, v){
-            var isVowel = $.inArray(v, vowels);
+            var isVowel = $.inArray(v.toLowerCase(), vowels);
 
             if(isVowel < 0) {
               if(lettersToChange.length > 0) {
